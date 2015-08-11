@@ -25,6 +25,11 @@ Rectangle {
             duration: 250
         }
     }
+    MouseArea {
+        anchors.fill: parent
+        propagateComposedEvents: false
+        onClicked: mouse.accepted = true
+    }
     RowLayout {
         anchors.leftMargin: 5
         anchors.rightMargin: 5

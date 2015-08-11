@@ -46,6 +46,7 @@ ApplicationWindow {
         property int widgetWidth: 320
     }
     MainForm {
+        anchors.fill: parent
         model: feedModel
     }
     Timer {

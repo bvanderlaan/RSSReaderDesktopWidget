@@ -21,8 +21,9 @@ import QtGraphicalEffects 1.0
 
 MouseArea {
     id: root
-    anchors.fill: parent
     hoverEnabled: true
+    width: 320
+    height: 500
     property color backgroundColour: "#797979"
     property bool isMouseOverWindow: containsMouse
     property alias model: rssFeedList.model
@@ -41,6 +42,7 @@ MouseArea {
 
         ListView {
             id: rssFeedList
+            interactive: true
             anchors { left: parent.left; right: parent.right; }
             delegate: FeedDelegate {
                 title: role_title
