@@ -16,23 +16,28 @@
 
 import QtQuick 2.4
 import QtQuick.Controls 1.2
+import QtQuick.Controls.Styles 1.2
+import QtGraphicalEffects 1.0
 
 MouseArea {
     id: root
     anchors.fill: parent
     hoverEnabled: true
-    property color backgroundColour: "black"
-    property real backgroundOpacity: 0.7
+    property color backgroundColour: "#797979"
     property bool isMouseOverWindow: containsMouse
     property alias model: rssFeedList.model
 
     Rectangle{
         anchors.fill: parent
         color: root.backgroundColour
-        opacity: root.backgroundOpacity
     }
     ScrollView {
         anchors.fill: parent
+        style: ScrollViewStyle {
+            decrementControl: Item {}
+            incrementControl: Item {}
+            scrollBarBackground: Item { width: 2; }
+        }
 
         ListView {
             id: rssFeedList
@@ -44,11 +49,29 @@ MouseArea {
             }
         }
     }
+    LinearGradient {
+        anchors.top: parent.top
+        anchors { left: parent.left; right: parent.right; }
+        height: 20
+        gradient: Gradient {
+                    GradientStop { position: 0.0; color: "black" }
+                    GradientStop { position: 1.0; color: "transparent" }
+                }
+    }
+    LinearGradient {
+        anchors.bottom: parent.bottom
+        anchors { left: parent.left; right: parent.right; }
+        height: 20
+        gradient: Gradient {
+                    GradientStop { position: 0.0; color: "transparent" }
+                    GradientStop { position: 1.0; color: "black" }
+                }
+    }
     HeaderBar {
         anchors.top: parent.top
         anchors { left: parent.left; right: parent.right; }
         height: 40
-        color: root.backgroundColour
+        color: "black"
         opacity: root.isMouseOverWindow ? 1.0 : 0.0
     }
 }

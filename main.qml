@@ -18,28 +18,36 @@ import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Dialogs 1.2
 import QtQuick.XmlListModel 2.0
+import QtQuick.Window 2.2
+import Qt.labs.settings 1.0
 
 ApplicationWindow {
     id: root
-    width: 640
-    height: 480
+    width: 320
+    height: Screen.desktopAvailableHeight
+    x: 0
+    y: 0
     visible: true
     flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
     Component.onCompleted: feedRefreshTimer.start()
 
+    Settings {
+        id: settings
+        property int refreshRSSFeedIntervalinMilliseconds: 900000 //15min
+        property string rssFeedUrl: "http://news.yahoo.com/rss/topstories"
+    }
     MainForm {
         model: feedModel
     }
     Timer {
         id: feedRefreshTimer
-        interval: 900000 //15min
+        interval: settings.refreshRSSFeedIntervalinMilliseconds
         repeat: true
         onTriggered: feedModel.reload()
     }
     XmlListModel {
         id: feedModel
-        source: "http://news.yahoo.com/rss/topstories"
-//        source: "http://imaginativethinking.ca/feed/"
+        source: settings.rssFeedUrl
         query: "/rss/channel/item"
         onStatusChanged: {
             if ( status === XmlListModel.Error ) {

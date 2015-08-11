@@ -29,22 +29,23 @@ Rectangle {
         anchors.leftMargin: 5
         anchors.rightMargin: 5
         anchors.fill: parent
+        spacing: 0
 
         WhiteText {
             text: Qt.application.name
             anchors.verticalCenter: parent.verticalCenter
-            font.pointSize: 18
+            font.pointSize: 14
         }
         Item { Layout.fillWidth: true; height: 1; }
         Item {
             anchors { top: parent.top; bottom: parent.bottom; }
-            width: 40
+            width: 20
 
             Text {
                 text: "X"
                 color: exitButtonMouseArea.containsMouse ? "lightgrey" : "white"
                 anchors.centerIn: parent
-                font.pointSize: 18
+                font.pointSize: 14
             }
             MouseArea {
                 id: exitButtonMouseArea
