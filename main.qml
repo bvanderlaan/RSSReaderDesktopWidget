@@ -20,21 +20,30 @@ import QtQuick.Dialogs 1.2
 import QtQuick.XmlListModel 2.0
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
+import ca.imaginativethinking 1.0
 
 ApplicationWindow {
     id: root
     width: 320
     height: Screen.desktopAvailableHeight
-    x: 0
-    y: 0
+    x: widgetPositioner.x
+    y: widgetPositioner.y
     visible: true
     flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
     Component.onCompleted: feedRefreshTimer.start()
 
+    WidgetPositioner {
+        id: widgetPositioner
+        screenNumber: settings.screenNumber
+        screenPosition: settings.screenPosition
+        widgetSize: Qt.size( root.width, root.height )
+    }
     Settings {
         id: settings
         property int refreshRSSFeedIntervalinMilliseconds: 900000 //15min
         property string rssFeedUrl: "http://news.yahoo.com/rss/topstories"
+        property int screenNumber: 1
+        property int screenPosition: WidgetPositioner.ScreenPosition_Left
     }
     MainForm {
         model: feedModel
