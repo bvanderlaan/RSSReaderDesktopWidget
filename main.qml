@@ -24,8 +24,8 @@ import ca.imaginativethinking 1.0
 
 ApplicationWindow {
     id: root
-    width: 320
-    height: Screen.desktopAvailableHeight
+    width: widgetPositioner.widgetSize.width
+    height: widgetPositioner.widgetSize.height
     x: widgetPositioner.x
     y: widgetPositioner.y
     visible: true
@@ -36,14 +36,14 @@ ApplicationWindow {
         id: widgetPositioner
         screenNumber: settings.screenNumber
         screenPosition: settings.screenPosition
-        widgetSize: Qt.size( root.width, root.height )
     }
     Settings {
         id: settings
-        property int refreshRSSFeedIntervalinMilliseconds: 900000 //15min
-        property string rssFeedUrl: "http://news.yahoo.com/rss/topstories"
+        property int refreshRSSFeedIntervalinMilliseconds: 300000 //5min
+        property string rssFeedUrl: "http://cktengsvn02:8080/rss.php?repname=Fusion&path=%2Ftrunk%2F&isdir=1&"
         property int screenNumber: 1
         property int screenPosition: WidgetPositioner.ScreenPosition_Left
+        property int widgetWidth: 320
     }
     MainForm {
         model: feedModel

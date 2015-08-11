@@ -17,11 +17,13 @@
 import QtQuick 2.0
 
 Item {
+    id: root
     anchors { left: parent.left; right: parent.right; }
     height: childrenRect.height + 20
     property alias title: feedTitle.text
     property alias publicationDate: feedDate.text
     property alias content: feedContent.text
+    property string url
 
     Column {
         anchors.top: parent.top
@@ -32,12 +34,21 @@ Item {
         height: childrenRect.height
         spacing: 8
 
-        WhiteText {
+        Text {
             id: feedTitle
             anchors { left: parent.left; right: parent.right; }
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
             font.bold: true
             font.pointSize: 14
+            color: titleLinkMouseArea.containsMouse ? "lightgrey" : "white"
+
+            MouseArea {
+                id: titleLinkMouseArea
+                anchors.fill: parent
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                onClicked: Qt.openUrlExternally( root.url )
+            }
         }
         WhiteText {
             id: feedDate

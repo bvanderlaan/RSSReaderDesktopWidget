@@ -46,6 +46,7 @@ MouseArea {
                 title: role_title
                 publicationDate: role_publicationDate
                 content: role_description
+                url: role_link
             }
         }
     }

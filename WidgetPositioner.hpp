@@ -30,9 +30,9 @@ namespace ImaginativeThinking
             Q_OBJECT
             Q_PROPERTY(int x READ getXPosition NOTIFY widgetPositionChanged )
             Q_PROPERTY(int y READ getYPosition NOTIFY widgetPositionChanged )
+            Q_PROPERTY(QSize widgetSize READ getWidgetSize NOTIFY widgetSizeChanged )
             Q_PROPERTY(int screenNumber READ getScreenNumber WRITE setScreenNumber NOTIFY screenNumberChanged )
             Q_PROPERTY(ScreenPosition screenPosition READ getScreenPosition WRITE setScreenPosition NOTIFY screenPositionChanged)
-            Q_PROPERTY(QSize widgetSize READ getWidgetSize WRITE setWidgetSize NOTIFY widgetSizeChanged )
             Q_ENUMS( ScreenPosition )
         public:
             explicit WidgetPositioner(QObject *parent = 0);
@@ -51,7 +51,6 @@ namespace ImaginativeThinking
             ScreenPosition getScreenPosition() const;
             void setScreenPosition( ScreenPosition position );
             QSize getWidgetSize() const;
-            void setWidgetSize( QSize size );
 
         signals:
             void widgetPositionChanged();
@@ -68,6 +67,7 @@ namespace ImaginativeThinking
 
         private slots:
             void updateWidgetPosition();
+            void updateWidgetHeight();
         };
     }
 }

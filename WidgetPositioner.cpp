@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
+#include <QSettings>
+#include <QCoreApplication>
 #include "WidgetPositioner.hpp"
 
+#include <QDebug>
 using namespace ImaginativeThinking::RSSReader;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,7 +28,11 @@ WidgetPositioner::WidgetPositioner(QObject *parent) :
     m_screenPosition( ScreenPosition_Left ),
     m_widgetSize(0,0)
 {
+    QSettings settings( qApp->organizationName(), qApp->applicationName());
+    m_widgetSize.setWidth( settings.value("widgetWidth", QVariant(320)).toInt() );
+
     connect(this, WidgetPositioner::screenNumberChanged, WidgetPositioner::updateWidgetPosition );
+    connect(this, WidgetPositioner::screenNumberChanged, WidgetPositioner::updateWidgetHeight );
     connect(this, WidgetPositioner::screenPositionChanged, WidgetPositioner::updateWidgetPosition );
     connect(this, WidgetPositioner::widgetSizeChanged, WidgetPositioner::updateWidgetPosition );
 }
@@ -81,19 +88,10 @@ QSize WidgetPositioner::getWidgetSize() const
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-void WidgetPositioner::setWidgetSize(QSize size)
-{
-    if ( m_widgetSize != size )
-    {
-        m_widgetSize = size;
-        emit widgetSizeChanged( m_widgetSize );
-    }
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
 void WidgetPositioner::updateWidgetPosition()
 {
     auto screen = m_desktopWidget.screen(m_screenNumber - 1);
+    m_widgetPosition.setY( screen->y() );
 
     switch( m_screenPosition )
     {
@@ -106,4 +104,12 @@ void WidgetPositioner::updateWidgetPosition()
             break;
     }
     emit widgetPositionChanged();
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+void WidgetPositioner::updateWidgetHeight()
+{
+    auto screen = m_desktopWidget.screen(m_screenNumber - 1);
+    m_widgetSize.setHeight( screen->height() );
+    emit widgetSizeChanged( m_widgetSize );
 }
