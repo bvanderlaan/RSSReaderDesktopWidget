@@ -10,7 +10,7 @@ Dialog {
     title: Qt.application.name + " " + qsTr("Settings")
     standardButtons: StandardButton.Save | StandardButton.Cancel
     property alias widgetPlacementIndex: widgetPlacement.currentIndex
-    property alias screenToPutWidgetOn: widgetScreen.text
+    property alias screenToPutWidgetOn: widgetScreen.value
     property alias refreshRSSFeedIntervalinMilliseconds: rssRefreshInterval.text
 
     Screens {
@@ -54,10 +54,11 @@ Dialog {
             anchors.verticalCenter: widgetScreen.verticalCenter
             text: qsTr("Screen To Put Widget On:")
         }
-        TextField {
+        SpinBox {
             id: widgetScreen
             Layout.fillWidth: true
-            validator: IntValidator {bottom: 1; top: screens.numberOfScreens;}
+            maximumValue: screens.numberOfScreens
+            minimumValue: 1
         }
 
         // ROW 3

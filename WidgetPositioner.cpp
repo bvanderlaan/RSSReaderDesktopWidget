@@ -108,7 +108,7 @@ void WidgetPositioner::updateWidgetPosition()
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 void WidgetPositioner::updateWidgetHeight()
 {
-    auto screen = m_desktopWidget.screen(m_screenNumber - 1);
-    m_widgetSize.setHeight( screen->height() );
+    auto screen = m_desktopWidget.availableGeometry(m_screenNumber - 1);
+    m_widgetSize.setHeight( screen.height() );
     emit widgetSizeChanged( m_widgetSize );
 }
