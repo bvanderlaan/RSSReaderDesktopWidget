@@ -48,6 +48,33 @@ ApplicationWindow {
     MainForm {
         anchors.fill: parent
         model: feedModel
+        optionButtonAction: settingsButtonAction
+    }
+    Action {
+        id: settingsButtonAction
+        onTriggered: {
+            settingsDialog.open()
+        }
+    }
+    Action {
+        id: saveSettingsAction
+        onTriggered: {
+            settings.screenPosition = settingsDialog.widgetPlacementIndex
+            settings.screenNumber = settingsDialog.screenToPutWidgetOn
+            settings.refreshRSSFeedIntervalinMilliseconds = settingsDialog.refreshRSSFeedIntervalinMilliseconds
+        }
+    }
+    SettingsDialog {
+        id: settingsDialog
+        widgetPlacementIndex: settings.screenPosition
+        screenToPutWidgetOn: settings.screenNumber
+        refreshRSSFeedIntervalinMilliseconds: settings.refreshRSSFeedIntervalinMilliseconds
+        onAccepted: saveSettingsAction.trigger()
+        onRejected: {
+            settingsDialog.widgetPlacementIndex = settings.screenPosition
+            settingsDialog.screenToPutWidgetOn = settings.screenNumber
+            settingsDialog.refreshRSSFeedIntervalinMilliseconds = settings.refreshRSSFeedIntervalinMilliseconds
+        }
     }
     Timer {
         id: feedRefreshTimer

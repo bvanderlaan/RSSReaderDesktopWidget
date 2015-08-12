@@ -27,6 +27,7 @@ MouseArea {
     property color backgroundColour: "#797979"
     property bool isMouseOverWindow: containsMouse
     property alias model: rssFeedList.model
+    property alias optionButtonAction: headerBar.optionButtonAction
 
     Rectangle{
         anchors.fill: parent
@@ -71,6 +72,7 @@ MouseArea {
                 }
     }
     HeaderBar {
+        id: headerBar
         anchors.top: parent.top
         anchors { left: parent.left; right: parent.right; }
         height: 40

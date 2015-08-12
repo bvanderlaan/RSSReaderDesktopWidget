@@ -15,10 +15,12 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
 Rectangle {
     id: root
+    property Action optionButtonAction
 
     Behavior on opacity {
         NumberAnimation {
@@ -42,6 +44,24 @@ Rectangle {
             font.pointSize: 14
         }
         Item { Layout.fillWidth: true; height: 1; }
+        Item {
+            anchors { top: parent.top; bottom: parent.bottom; }
+            width: 20
+
+            Text {
+                text: "O"
+                color: optionButtonMouseArea.containsMouse ? "lightgrey" : "white"
+                anchors.centerIn: parent
+                font.pointSize: 14
+            }
+            MouseArea {
+                id: optionButtonMouseArea
+                anchors.fill: parent
+                onClicked: optionButtonAction.trigger()
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+            }
+        }
         Item {
             anchors { top: parent.top; bottom: parent.bottom; }
             width: 20
