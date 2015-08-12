@@ -13,7 +13,9 @@ Dialog {
     property alias screenToPutWidgetOn: widgetScreen.text
     property alias refreshRSSFeedIntervalinMilliseconds: rssRefreshInterval.text
 
-
+    Screens {
+        id: screens
+    }
     GridLayout  {
         anchors.fill: parent
         columns: 2
@@ -55,7 +57,7 @@ Dialog {
         TextField {
             id: widgetScreen
             Layout.fillWidth: true
-            validator: IntValidator {bottom: 1; top: 2;}
+            validator: IntValidator {bottom: 1; top: screens.numberOfScreens;}
         }
 
         // ROW 3

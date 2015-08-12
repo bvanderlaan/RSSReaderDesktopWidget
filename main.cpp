@@ -3,12 +3,14 @@
 #include <QFileInfo>
 #include <QtQml>
 #include "WidgetPositioner.hpp"
+#include "Screens.hpp"
 
 using namespace ImaginativeThinking::RSSReader;
 
 int main(int argc, char *argv[])
 {
     qmlRegisterType<WidgetPositioner>("ca.imaginativethinking", 1, 0, "WidgetPositioner");
+    qmlRegisterType<Screens>("ca.imaginativethinking", 1, 0, "Screens" );
 
     QApplication app(argc, argv);
     app.setOrganizationName("Imaginative Thinking");

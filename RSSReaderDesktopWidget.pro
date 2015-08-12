@@ -3,10 +3,12 @@ QT += qml quick widgets
 CONFIG += C++14
 
 SOURCES += main.cpp \
-    WidgetPositioner.cpp
+    WidgetPositioner.cpp \
+    Screens.cpp
 
 HEADERS += \
-    WidgetPositioner.hpp
+    WidgetPositioner.hpp \
+    Screens.hpp
 
 RESOURCES += qml.qrc
 
