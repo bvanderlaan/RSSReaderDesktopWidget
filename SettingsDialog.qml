@@ -12,6 +12,7 @@ Dialog {
     property alias widgetPlacementIndex: widgetPlacement.currentIndex
     property alias screenToPutWidgetOn: widgetScreen.value
     property alias refreshRSSFeedIntervalinMilliseconds: rssRefreshInterval.text
+    property alias rssUrl: rssFeedUrl.text
 
     Screens {
         id: screens
@@ -20,15 +21,19 @@ Dialog {
         anchors.fill: parent
         columns: 2
         columnSpacing: 5
-        property int maxLabelWidth: Math.max( widgetPlacementLabel.implicitWidth, widgetScreenLabel.implicitWidth, rssRefreshIntervalLabel.implicitWidth )
+        property int maxLabelWidth: Math.max( widgetPlacementLabel.implicitWidth, widgetScreenLabel.implicitWidth, rssRefreshIntervalLabel.implicitWidth, rssFeedUrlLabel.implicitWidth )
 
         // ROW 1
-        Label {
-            id: widgetPlacementLabel
+        Item {
             width: parent.maxLabelWidth
-            horizontalAlignment: Text.AlignRight
+            height: childrenRect.height
             anchors.verticalCenter: widgetPlacement.verticalCenter
-            text: qsTr("Widget Placement:")
+
+            Label {
+                id: widgetPlacementLabel
+                anchors.right: parent.right
+                text: qsTr("Widget Placement:")
+            }
         }
         ComboBox {
             id: widgetPlacement
@@ -47,12 +52,16 @@ Dialog {
         }
 
         // ROW 2
-        Label {
-            id: widgetScreenLabel
+        Item {
             width: parent.maxLabelWidth
-            horizontalAlignment: Text.AlignRight
+            height: childrenRect.height
             anchors.verticalCenter: widgetScreen.verticalCenter
-            text: qsTr("Screen To Put Widget On:")
+
+            Label {
+                id: widgetScreenLabel
+                anchors.right: parent.right
+                text: qsTr("Screen To Put Widget On:")
+            }
         }
         SpinBox {
             id: widgetScreen
@@ -62,17 +71,38 @@ Dialog {
         }
 
         // ROW 3
-        Label {
-            id: rssRefreshIntervalLabel
+        Item {
             width: parent.maxLabelWidth
-            horizontalAlignment: Text.AlignRight
+            height: childrenRect.height
             anchors.verticalCenter: rssRefreshInterval.verticalCenter
-            text: qsTr("Refresh the RSS feed every (ms):")
+
+            Label {
+                id: rssRefreshIntervalLabel
+                anchors.right: parent.right
+                text: qsTr("Refresh the RSS feed every (ms):")
+            }
         }
         TextField {
             id: rssRefreshInterval
             Layout.fillWidth: true
             validator: IntValidator {bottom: 1000; top: 86400000;}
+        }
+
+        // ROW 4
+        Item {
+            width: parent.maxLabelWidth
+            height: childrenRect.height
+            anchors.verticalCenter: rssFeedUrl.verticalCenter
+
+            Label {
+                id: rssFeedUrlLabel
+                text: qsTr("RSS URL:")
+                anchors.right: parent.right
+            }
+        }
+        TextField {
+            id: rssFeedUrl
+            Layout.fillWidth: true
         }
     }
 }

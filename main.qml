@@ -40,7 +40,7 @@ ApplicationWindow {
     Settings {
         id: settings
         property int refreshRSSFeedIntervalinMilliseconds: 300000 //5min
-        property string rssFeedUrl: "http://cktengsvn02:8080/rss.php?repname=Fusion&path=%2Ftrunk%2F&isdir=1&"
+        property string rssFeedUrl: ""
         property int screenNumber: 1
         property int screenPosition: WidgetPositioner.ScreenPosition_Left
         property int widgetWidth: 320
@@ -62,6 +62,7 @@ ApplicationWindow {
             settings.screenPosition = settingsDialog.widgetPlacementIndex
             settings.screenNumber = settingsDialog.screenToPutWidgetOn
             settings.refreshRSSFeedIntervalinMilliseconds = settingsDialog.refreshRSSFeedIntervalinMilliseconds
+            settings.rssFeedUrl = settingsDialog.rssUrl
         }
     }
     SettingsDialog {
@@ -69,11 +70,13 @@ ApplicationWindow {
         widgetPlacementIndex: settings.screenPosition
         screenToPutWidgetOn: settings.screenNumber
         refreshRSSFeedIntervalinMilliseconds: settings.refreshRSSFeedIntervalinMilliseconds
+        rssUrl: settings.rssFeedUrl
         onAccepted: saveSettingsAction.trigger()
         onRejected: {
             settingsDialog.widgetPlacementIndex = settings.screenPosition
             settingsDialog.screenToPutWidgetOn = settings.screenNumber
             settingsDialog.refreshRSSFeedIntervalinMilliseconds = settings.refreshRSSFeedIntervalinMilliseconds
+            settingsDialog.rssUrl = settings.rssFeedUrl
         }
     }
     Timer {
